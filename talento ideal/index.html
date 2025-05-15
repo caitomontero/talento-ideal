@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Escenario - Talento Ideal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .option {
+      margin-left: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    .feedback {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #e9f7ef;
+      border-left: 4px solid #28a745;
+      color: #155724;
+      font-size: 0.9em;
+    }
+    .progress-bar {
+      margin-top: 20px;
+      width: 100%;
+      height: 10px;
+      background-color: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: #28a745;
+      transition: width 0.5s ease;
+    }
+    .reset-btn {
+      margin-top: 20px;
+      background-color: #dc3545;
+    }
+    .reset-btn:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>La Búsqueda del Talento Ideal</h1>
+    <p><strong>Objetivo:</strong> Navegar con éxito el proceso de reclutamiento y selección.</p>
+
+    <div id="scenario-container"></div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <button class="reset-btn" onclick="resetProgress()">🔄 Reiniciar Escenario</button>
+  </div>
+
+  <script>
+    const scenario = {
+      inicio: {
+        text: "<strong>Fase Inicial:</strong> Surge la necesidad. El Director de Marketing, Juan, te informa que debe cubrirse con urgencia el puesto de 'Especialista en Marketing Digital Senior'. ¿Cómo procederás?",
+        options: [
+          { text: "Comenzar", next: "F1" }
+        ],
+        feedback: "Todo comienza con entender si este rol es un reemplazo directo o necesita evolucionar."
+      },
+      F1: {
+        text: "<h2>Fase 1: Definición y Planificación</h2><p>Te reúnes con Juan para entender a fondo la vacante.</p>",
+        options: [
+          { text: "Opción A: Reemplazo Directo", next: "A" },
+          { text: "Opción B: Rol Evolucionado/Nuevo", next: "B" }
+        ],
+        feedback: "La definición del rol es clave. Si optas por reemplazo directo, asegúrate de actualizarlo con herramientas actuales como IA aplicada al marketing."
+      },
+      A: {
+        text: "<h3>Opción A: Reemplazo Directo</h3><p>Juan indica que el perfil anterior funcionaba bien, solo necesita actualizarse ligeramente con nuevas herramientas.</p>",
+        options: [
+          { text: "Acción A1: Actualizar el JD existente", next: "A1" },
+          { text: "Acción A2: Validar el JD actualizado y rango salarial", next: "A2" }
+        ],
+        feedback: "Has elegido reemplazar el perfil existente. Esto acelera el proceso pero puede no adaptarse a nuevas demandas del mercado."
+      },
+      A1: {
+        text: "<h3>Acción A1: Actualizar el JD existente</h3><p>Revisaste competencias, responsabilidades y añadiste nuevas herramientas como IA para marketing. Proceso de definición más rápido. Se pasa a la Fase 2.</p>",
+        options: [{ text: "Ir a Fase 2", next: "F2" }],
+        feedback: "Actualizaste el JD con nuevos elementos clave. Esto mantiene el proceso ágil y actualizado."
+      },
+      A2: {
+        text: "<h3>Acción A2: Validar el JD actualizado y definir rango salarial</h3><p>Validaste el JD actualizado con Juan y definiste el rango salarial basándose en el presupuesto existente y mercado. Proceso de definición más rápido. Se pasa a la Fase 2.</p>",
+        options: [{ text: "Ir a Fase 2", next: "F2" }],
+        feedback: "Has validado el JD y establecido el rango salarial. Esta acción asegura claridad y evita conflictos posteriores."
+      },
+      B: {
+        text: "<h3>Opción B: Rol Evolucionado/Nuevo</h3><p>Juan quiere redefinir significativamente el rol, enfocándolo más en estrategia de datos y menos en ejecución de campañas (que se externalizará).</p>",
+        options: [
+          { text: "Acción B1: Crear un nuevo JD desde cero", next: "B1" },
+          { text: "Acción B2: Realizar un benchmark salarial", next: "B2" },
+          { text: "Acción B3: Validar el nuevo JD y rango salarial", next: "B3" }
+        ],
+        feedback: "Has decidido crear un rol completamente nuevo. Esto toma más tiempo, pero asegura que el perfil esté alineado con las nuevas metas estratégicas."
+      },
+      B1: {
+        text: "<h3>Acción B1: Crear un nuevo JD desde cero</h3><p>Implica un análisis profundo de las nuevas necesidades estratégicas del departamento. Requiere más tiempo y detalle. Proceso de definición más largo, pero asegura un perfil alineado con la nueva estrategia. Se pasa a la Fase 2.</p>",
+        options: [{ text: "Ir a Fase 2", next: "F2" }],
+        feedback: "Creaste un JD totalmente nuevo, lo cual es ideal si hay cambios estratégicos importantes en el rol."
+      },
+      B2: {
+        text: "<h3>Acción B2: Realizar un benchmark salarial</h3><p>Realizaste un benchmark salarial para este nuevo perfil, que podría ser diferente al anterior. Ajustaste el presupuesto si es necesario y posible. Proceso de definición más largo, pero asegura un perfil alineado con la nueva estrategia. Se pasa a la Fase 2.</p>",
+        options: [{ text: "Ir a Fase 2", next: "F2" }],
+        feedback: "Benchmark salarial realizado. Este paso ayuda a evitar frustraciones posteriores por expectativas salariales incorrectas."
+      },
+      B3: {
+        text: "<h3>Acción B3: Validar el nuevo JD y el rango salarial</h3><p>Validaste el nuevo JD y el rango salarial con Juan y, posiblemente, con Dirección si el presupuesto se ve afectado. Proceso de definición más largo, pero asegura un perfil alineado con la nueva estrategia. Se pasa a la Fase 2.</p>",
+        options: [{ text: "Ir a Fase 2", next: "F2" }],
+        feedback: "JD y salario validados. Has asegurado alineación entre RRHH, Hiring Manager y, si fue necesario, Dirección."
+      },
+      F2: {
+        text: "<h2>Fase 2: Estrategia de Atracción de Talento</h2><p>Con el JD y el rango salarial definidos y aprobados:</p>",
+        options: [
+          { text: "Opción A: Priorizar Búsqueda Interna", next: "F2A" },
+          { text: "Opción B: Iniciar Búsqueda Externa", next: "F2B" }
+        ],
+        feedback: "Ahora decides cómo buscar el talento. La búsqueda interna puede ser rápida, pero limitada; la externa es más amplia pero lleva más tiempo."
+      },
+      F2A: {
+        text: "<h3>Opción A: Priorizar Búsqueda Interna</h3><p>Has comunicado la vacante internamente (intranet, email a managers). Establece un plazo corto para postulaciones internas.</p>",
+        options: [
+          { text: "Resultado A1.1: Candidatos internos prometedores", next: "F2A1" },
+          { text: "Resultado A1.2: No hay candidatos internos adecuados", next: "F2A2" }
+        ],
+        feedback: "Decidiste priorizar candidatos internos. Esto puede agilizar el proceso, mejorar la retención y reducir costos."
+      },
+      F2A1: {
+        text: "<h3>Resultado A1.1: Candidatos internos prometedores</h3><p>Se identifican candidatos internos prometedores. Has evaluado a los candidatos internos mediante entrevistas y revisión de desempeño.</p>",
+        options: [{ text: "Ver Resultado Final", next: "final" }],
+        feedback: "Encontraste candidatos internos calificados. Esto acortó el proceso y mejoró la experiencia del empleado."
+      },
+      F2A2: {
+        text: "<h3>Resultado A1.2: No hay candidatos internos adecuados</h3><p>No hay candidatos internos o no son adecuados. Procederás directamente a la Opción B (Búsqueda Externa).</p>",
+        options: [{ text: "Ir a Opción B", next: "F2B" }],
+        feedback: "No encontraste candidatos internos viables. Ahora deberás abrirte al mercado externo."
+      },
+      F2B: {
+        text: "<h3>Opción B: Iniciar Búsqueda Externa</h3><p>¿Qué combinación de canales usarás según presupuesto y urgencia?</p>",
+        options: [
+          { text: "Sub-Opción B1.1: Canales Gratuitos/Orgánicos", next: "F2B1" },
+          { text: "Sub-Opción B1.2: Canales de Pago", next: "F2B2" },
+          { text: "Sub-Opción B1.3: Programa de Referidos", next: "F2B3" }
+        ],
+        feedback: "Decidiste iniciar una búsqueda externa. Tu elección de canales será crucial para encontrar el perfil correcto."
+      },
+      F2B1: {
+        text: "<h3>Sub-Opción B1.1: Canales Gratuitos/Orgánicos</h3><p>Has publicado en el portal de empleo de la empresa, LinkedIn y redes sociales corporativas.</p>",
+        options: [{ text: "Ir a Fase 3", next: "F3" }],
+        feedback: "Optaste por canales gratuitos. Es económico, pero puede tardar más en generar resultados sólidos."
+      },
+      F2B2: {
+        text: "<h3>Sub-Opción B1.2: Canales de Pago</h3><p>Has usado bolsas de empleo premium, anuncios patrocinados en LinkedIn y contactado a headhunters.</p>",
+        options: [{ text: "Ir a Fase 3", next: "F3" }],
+        feedback: "Canales de pago aumentan tu alcance y rapidez. Ideal si el rol es crítico y requiere pronta incorporación."
+      },
+      F2B3: {
+        text: "<h3>Sub-Opción B1.3: Programa de Referidos</h3><p>Has activado o potenciado el programa de referidos interno.</p>",
+        options: [{ text: "Ir a Fase 3", next: "F3" }],
+        feedback: "Programa de referidos activo. Suele traer candidatos de alta calidad y recomendados por empleados actuales."
+      },
+      F3: {
+        text: "<h2>Fase 3: Recepción y Cribado de Candidaturas</h2><p>Las candidaturas empiezan a llegar. ¿Cuál es la situación?</p>",
+        options: [
+          { text: "Situación A: Avalancha de CVs", next: "F3A" },
+          { text: "Situación B: Escasez de CVs cualificados", next: "F3B" },
+          { text: "Situación C: Flujo adecuado de CVs", next: "F3C" }
+        ],
+        feedback: "Es momento de gestionar las candidaturas. La cantidad y calidad de CVs determinará tu próxima acción."
+      },
+      F3A: {
+        text: "<h3>Situación A: Avalancha de CVs</h3><p>El ATS está desbordado. Muchos no cumplen los requisitos básicos.</p>",
+        options: [
+          { text: "Acción A1: Afinar los filtros del ATS", next: "F3A1" },
+          { text: "Acción A2: Dedicar más tiempo al cribado inicial", next: "F3A2" },
+          { text: "Acción A3: Ser más específico en los requisitos excluyentes", next: "F3A3" }
+        ],
+        feedback: "Recibiste muchas candidaturas, pero pocas válidas. Refinar criterios mejora la eficiencia del cribado."
+      },
+      F3A1: {
+        text: "<h3>Acción A1: Afinar los filtros del ATS</h3><p>Mejoraste los criterios de filtrado para evitar sobrecarga. Ahora puedes continuar.</p>",
+        options: [{ text: "Ir a Fase 4", next: "F4" }],
+        feedback: "Los filtros del ATS ahora son más precisos. Esto reduce falsos positivos y mejora el cribado."
+      },
+      F3A2: {
+        text: "<h3>Acción A2: Dedicar más tiempo al cribado inicial</h3><p>Analizaste manualmente los CVs y seleccionaste una shortlist viable.</p>",
+        options: [{ text: "Ir a Fase 4", next: "F4" }],
+        feedback: "Dedicaste más tiempo al cribado. Esto puede mejorar la calidad de la shortlist aunque retrase un poco el proceso."
+      },
+      F3A3: {
+        text: "<h3>Acción A3: Ser más específico en los requisitos excluyentes</h3><p>Refinaste la oferta para evitar candidaturas irrelevantes. Ahora continúa.</p>",
+        options: [{ text: "Ir a Fase 4", next: "F4" }],
+        feedback: "Definiste mejor los requisitos excluyentes. Esto mejora la calidad de los perfiles que llegan."
+      },
+      F3B: {
+        text: "<h3>Situación B: Escasez de CVs cualificados</h3><p>Llegan pocos CVs, y la mayoría no encajan.</p>",
+        options: [
+          { text: "Acción B1: Revisar la publicación", next: "F3B1" },
+          { text: "Acción B2: Ampliar los canales de búsqueda", next: "F3B2" },
+          { text: "Acción B3: Realizar búsqueda activa", next: "F3B3" },
+          { text: "Acción B4: Revisar el JD con Juan", next: "F3B4" }
+        ],
+        feedback: "La escasez de CVs indica que debes ajustar tu estrategia. Puedes revisar la publicación o expandir tus canales."
+      },
+      F3B1: {
+        text: "<h3>Acción B1: Revisar la publicación</h3><p>Mejoraste la descripción de la oferta para hacerla más atractiva y clara.</p>",
+        options: [{ text: "Ir a Fase 4", next: "F4" }],
+        feedback: "La publicación fue optimizada. Esto puede ayudar a atraer mejores perfiles."
+      },
+      F3B2: {
+        text: "<h3>Acción B2: Ampliar los canales de búsqueda</h3><p>Incluiste nuevos portales de empleo y plataformas especializadas.</p>",
+        options: [{ text: "Ir a Fase 4", next: "F4" }],
+        feedback: "Ampliaste los canales de búsqueda. Esto mejora las probabilidades de encontrar buenos perfiles."
+      },
+      F3B3: {
+        text: "<h3>Acción B3: Realizar búsqueda activa</h3><p>Contactaste proactivamente a perfiles clave en LinkedIn y otras plataformas.</p>",
+        options: [{ text: "Ir a Fase 4", next: "F4" }],
+        feedback: "Usaste búsqueda activa. Esto suele traer perfiles pasivos de alta calidad."
+      },
+      F3B4: {
+        text: "<h3>Acción B4: Revisar el JD con Juan</h3><p>Juntos decidieron flexibilizar algunos requisitos para ampliar el pool de candidatos.</p>",
+        options: [{ text: "Ir a Fase 4", next: "F4" }],
+        feedback: "Revisaste el JD con Juan. Flexibilizar requisitos puede ayudar a ampliar el abanico de candidatos."
+      },
+      F3C: {
+        text: "<h3>Situación C: Flujo adecuado de CVs</h3><p>Llega un número manejable de candidaturas, con un porcentaje razonable de perfiles interesantes.</p>",
+        options: [{ text: "Ir a Fase 4", next: "F4" }],
+        feedback: "Tienes un flujo saludable de CVs. Puedes avanzar sin grandes ajustes."
+      },
+      F4: {
+        text: "<h2>Fase 4: Entrevistas y Evaluación</h2><p>Tienes una shortlist de candidatos.</p>",
+        options: [
+          { text: "Resultado A: Varios candidatos prometedores pasan el filtro", next: "F4A" },
+          { text: "Resultado B: Pocos o ningún candidato convence", next: "F4B" }
+        ],
+        feedback: "La fase de entrevistas es clave para evaluar cultural fit y habilidades técnicas. Prepárate para profundizar."
+      },
+      F4A: {
+        text: "<h3>Resultado A: Varios candidatos prometedores pasan el filtro</h3><p>Coordinaste entrevistas con el Hiring Manager (Juan) y preparaste guías de entrevista.</p>",
+        options: [
+          { text: "Opción X: Implementar Pruebas Técnicas", next: "F4AX" },
+          { text: "Situación C: Juan satisfecho con varios candidatos", next: "F4AC" },
+          { text: "Situación D: Juan indeciso", next: "F4AD" }
+        ],
+        feedback: "Tienes candidatos fuertes. Considera aplicar pruebas técnicas para tomar una decisión más objetiva."
+      },
+      F4AX: {
+        text: "<h3>Opción X: Implementar Pruebas Técnicas</h3><p>Diseñaste una prueba relevante con Juan y la administraste a los candidatos.</p>",
+        options: [
+          { text: "Resultado X.1: Candidatos superan la prueba", next: "F4AX1" },
+          { text: "Resultado X.2: Candidatos no superan la prueba", next: "F4AX2" }
+        ],
+        feedback: "Aplicaste pruebas técnicas. Esto ayuda a validar competencias específicas del rol."
+      },
+      F4AX1: {
+        text: "<h3>Resultado X.1: Candidatos superan la prueba</h3><p>Demuestran habilidades técnicas sólidas. Continúa con Situación C.</p>",
+        options: [{ text: "Ir a Situación C", next: "F4AC" }],
+        feedback: "Los candidatos superaron las pruebas. Ya tienes base para avanzar hacia la decisión final."
+      },
+      F4AX2: {
+        text: "<h3>Resultado X.2: Candidatos no superan la prueba</h3><p>Puedes reconsiderar la shortlist o incluso volver a Fase 3.</p>",
+        options: [{ text: "Volver a Fase 3", next: "F3" }],
+        feedback: "Ningún candidato superó las pruebas técnicas. Considera regresar y revisar tu estrategia de sourcing."
+      },
+      F4AC: {
+        text: "<h3>Situación C: Juan satisfecho con varios candidatos</h3><p>Procederás a verificar las referencias del finalista y su plan B.</p>",
+        options: [
+          { text: "Resultado E: Referencias positivas", next: "F4ACE" },
+          { text: "Resultado F: Referencias negativas o dudosas", next: "F4ACF" }
+        ],
+        feedback: "Juan está satisfecho con varios candidatos. Verificar referencias te ayudará a confirmar la decisión."
+      },
+      F4ACE: {
+        text: "<h3>Resultado E: Referencias positivas</h3><p>Las referencias confirman la trayectoria profesional del candidato. Ir a Fase 5.</p>",
+        options: [{ text: "Ir a Fase 5", next: "F5" }],
+        feedback: "Referencias verificadas. Ahora puedes pasar a la fase final del proceso."
+      },
+      F4ACF: {
+        text: "<h3>Resultado F: Referencias negativas o dudosas</h3><p>Debes analizar la gravedad de las inconsistencias o comentarios negativos.</p>",
+        options: [
+          { text: "Decisión F.X1: Descartar al candidato", next: "F4ACFD1" },
+          { text: "Decisión F.X2: Discutir con Juan", next: "F4ACFD2" }
+        ],
+        feedback: "Las referencias mostraron señales rojas. Evalúa cuidadosamente antes de seguir adelante."
+      },
+      F4ACFD1: {
+        text: "<h3>Decisión F.X1: Descartar al candidato</h3><p>Pasarás al Plan B si lo tienes.</p>",
+        options: [{ text: "Volver a Situación C", next: "F4AC" }],
+        feedback: "Decidiste descartar al candidato por referencias negativas. Mejor prevenir riesgos futuros."
+      },
+      F4ACFD2: {
+        text: "<h3>Decisión F.X2: Discutir con Juan</h3><p>Analizarás junto con Juan si puedes seguir adelante con el candidato o no.</p>",
+        options: [{ text: "Volver a Situación C", next: "F4AC" }],
+        feedback: "Discutiste con Juan. Las referencias no siempre son concluyentes, pero sí deben tomarse en cuenta."
+      },
+      F4B: {
+        text: "<h3>Resultado B: Pocos o ningún candidato convence</h3><p>Deberás analizar por qué falló el cribado o las expectativas.</p>",
+        options: [{ text: "Volver a Fase 3", next: "F3" }],
+        feedback: "No lograste encontrar candidatos suficientes. Regresa y revisa tu estrategia de sourcing."
+      },
+      F5: {
+        text: "<h2>Fase 5: Oferta y Cierre</h2><p>Se ha seleccionado al candidato ideal.</p>",
+        options: [
+          { text: "Opción A: Candidato acepta la oferta", next: "F5A" },
+          { text: "Opción B: Candidato intenta negociar", next: "F5B" },
+          { text: "Opción C: Candidato rechaza la oferta", next: "F5C" }
+        ],
+        feedback: "Estás cerca del cierre. Sé claro y profesional al presentar la oferta."
+      },
+      F5A: {
+        text: "<h3>Opción A: Candidato acepta la oferta</h3><p>¡FELICIDADES! El candidato acepta la oferta y se inicia el proceso de Onboarding.</p>",
+        options: [{ text: "Ver Resultado Final", next: "final" }],
+        feedback: "Oferta aceptada. ¡Excelente trabajo! El candidato comienza su onboarding."
+      },
+      F5B: {
+        text: "<h3>Opción B: Candidato intenta negociar</h3><p>Evalúa si la contraoferta es razonable dentro del presupuesto.</p>",
+        options: [
+          { text: "Resultado B1.1: Se llega a un acuerdo", next: "F5B1" },
+          { text: "Resultado B1.2: No es posible aceptar la contraoferta", next: "F5B2" }
+        ],
+        feedback: "Negociación iniciada. Equilibra entre mantener al candidato y respetar el presupuesto."
+      },
+      F5B1: {
+        text: "<h3>Resultado B1.1: Se llega a un acuerdo</h3><p>Ajustaste la oferta y el candidato la acepta.</p>",
+        options: [{ text: "Ver Resultado Final", next: "final" }],
+        feedback: "Lograste un acuerdo. El candidato está motivado y listo para unirse."
+      },
+      F5B2: {
+        text: "<h3>Resultado B1.2: No es posible aceptar la contraoferta</h3><p>Comunicaste la oferta original o una mejora mínima.</p>",
+        options: [
+          { text: "Si el candidato acepta", next: "F5B2A" },
+          { text: "Si el candidato rechaza", next: "F5B2B" }
+        ],
+        feedback: "No pudiste aceptar la contraoferta. La transparencia es clave para mantener una relación profesional."
+      },
+      F5B2A: {
+        text: "<h3>El candidato acepta la oferta modificada</h3><p>¡FELICIDADES! El candidato acepta la oferta y se inicia el proceso de Onboarding.</p>",
+        options: [{ text: "Ver Resultado Final", next: "final" }],
+        feedback: "El candidato aceptó la oferta ajustada. Lograste cerrar el proceso con éxito."
+      },
+      F5B2B: {
+        text: "<h3>El candidato rechaza la oferta modificada</h3><p>Deberás activar el Plan B o considerar reabrir la búsqueda.</p>",
+        options: [{ text: "Activar Plan B", next: "F5C" }],
+        feedback: "El candidato rechazó la oferta. Activa tu Plan B o reinicia el proceso."
+      },
+      F5C: {
+        text: "<h3>Opción C: Candidato rechaza la oferta directamente</h3><p>Intenta entender los motivos y activa el Plan B.</p>",
+        options: [{ text: "Activar Plan B", next: "F5" }],
+        feedback: "El candidato rechazó la oferta. Revisa los motivos y ajusta la estrategia con tu Plan B."
+      },
+      final: {
+        text: "<h2>✅ Éxito Temprano</h2><p>Un candidato interno ha sido seleccionado y aceptó la oferta. ¡El proceso concluye exitosamente!</p>",
+        options: [],
+        feedback: "¡Felicidades! Has completado el caso con éxito. Recuerda recopilar retroalimentación para mejorar futuras búsquedas."
+      }
+    };
+
+    let currentStep = "inicio";
+
+    function renderScenario() {
+      const container = document.getElementById("scenario-container");
+      const step = scenario[currentStep];
+
+      if (!step) {
+        container.innerHTML = "<p>⚠️ Error: Paso no encontrado.</p>";
+        return;
+      }
+
+      let html = `<div>${step.text}</div>`;
+      html += '<div class="option">';
+      step.options.forEach(option => {
+        html += `<button onclick="chooseOption('${option.next}')">${option.text}</button>`;
+      });
+      html += '</div>';
+
+      if (step.feedback) {
+        html += `<div class="feedback">${step.feedback}</div>`;
+      }
+
+      container.innerHTML = html;
+
+      updateProgressBar();
+    }
+
+    function chooseOption(nextStep) {
+      if (scenario[nextStep]) {
+        currentStep = nextStep;
+        renderScenario();
+      }
+    }
+
+    function resetProgress() {
+      if (confirm("¿Seguro que deseas reiniciar el escenario?")) {
+        currentStep = "inicio";
+        renderScenario();
+      }
+    }
+
+    function updateProgressBar() {
+      const totalSteps = Object.keys(scenario).length;
+      const stepsVisited = Object.keys(scenario).indexOf(currentStep) + 1;
+      const percent = Math.round((stepsVisited / totalSteps) * 100);
+      document.getElementById("progressFill").style.width = percent + "%";
+    }
+
+    window.onload = () => {
+      renderScenario();
+    };
+  </script>
+</body>
+</html>
